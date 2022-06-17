@@ -19,8 +19,10 @@ public class Cart {
     @Column(nullable = false)
     private int quantity;
 
-    @OneToMany
-    @JoinColumn(name = "itemId")
-    private List<Item> items;   // 리스트 안에 itemName, imageUrl, price, description
+    @ManyToOne
+    private User user;          // user 와 연관관계 설정
+
+    @ManyToOne
+    private Item item;
 
 }

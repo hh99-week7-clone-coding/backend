@@ -19,7 +19,6 @@ public class ItemService {
 
     public Item save(ItemRequestDto itemRequestDto){
         Item item = new Item(itemRequestDto);
-
         return itemRepository.save(item);
     }
 

@@ -30,6 +30,7 @@ public class Item {
     @Column(nullable = false)
     private String description;
 
+
     public Item(ItemRequestDto itemRequestDto) {
         this.itemName = itemRequestDto.getItemName();
         this.imageUrl = itemRequestDto.getImageUrl();
