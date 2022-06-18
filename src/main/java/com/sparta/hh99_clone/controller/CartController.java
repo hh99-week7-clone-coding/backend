@@ -23,10 +23,12 @@ public class CartController {
 //    @GetMapping("/api/user/{userId}/cart")
 //    public List<ItemResponseDto> getCart(@PathVariable Long userId){
 //    }
-//
-//    @DeleteMapping("/api/user/{userId}/cart/{cartItemId}/delete")
-//    public Long deleteCart(@PathVariable ){
-//    }
+
+    // 장바구니안에 상품 삭제
+    @DeleteMapping("/api/user/{userId}/cart/{cartItemId}/delete")
+    public void deleteCart(@PathVariable Long userId, @PathVariable Long cartItemId){
+        cartService.deleteCart(userId, cartItemId);
+    }
 
 
 }
