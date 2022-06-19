@@ -40,19 +40,19 @@ public class CartService {
 
 
     //장바구니 상품 조회
-    @Transactional
-    public List<CartResponseDto> getCart(Long userId){
-        User user = userRepository.findById(userId).orElseThrow(
-                () -> new IllegalArgumentException("찾는 유저가 없습니다.")
-        );
-        if(user.isPresent())
-
-
-
-
-
-        return cartResponseDtos;
-    }
+//    @Transactional
+//    public List<CartResponseDto> getCart(Long userId){
+//        User user = userRepository.findById(userId).orElseThrow(
+//                () -> new IllegalArgumentException("찾는 유저가 없습니다.")
+//        );
+//        if(user.isPresent())
+//
+//
+//
+//
+//
+//        return cartResponseDtos;
+//    }
 
 
     // 장바구니 상품 삭제

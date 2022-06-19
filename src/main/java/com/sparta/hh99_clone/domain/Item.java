@@ -1,17 +1,13 @@
 package com.sparta.hh99_clone.domain;
 
-import com.sparta.hh99_clone.dto.request.ItemRequestDto;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import javax.persistence.*;
 
-@Entity
+
 @Getter
+@Entity
 @NoArgsConstructor
-@AllArgsConstructor
 public class Item {
 
     @Id
@@ -25,22 +21,16 @@ public class Item {
     private String imageUrl;
 
     @Column(nullable = false)
+
+    private String imageOverUrl;
+
+    @Column(nullable = false)
     private int price;
 
     @Column(nullable = false)
     private String description;
 
     @Column(nullable = false)
-    private int upperCategory;
+    private String categoryId;
 
-    @Column(nullable = false)
-    private int lowerCategory;
-
-
-    public Item(ItemRequestDto itemRequestDto) {
-        this.itemName = itemRequestDto.getItemName();
-        this.imageUrl = itemRequestDto.getImageUrl();
-        this.price = itemRequestDto.getPrice();
-        this.description = itemRequestDto.getDescription();
-    }
 }

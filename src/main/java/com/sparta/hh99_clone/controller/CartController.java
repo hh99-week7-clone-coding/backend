@@ -23,11 +23,11 @@ public class CartController {
 //        return cartService.postCart(cartRequestDto, userId);
 //    }
 
-    // 장바구니 상품조회
-    @GetMapping("/api/user/{userId}/cart")
-    public List<CartResponseDto> getCart(@PathVariable Long userId){
-        return cartService.getCart(userId);
-    }
+//    // 장바구니 상품조회
+//    @GetMapping("/api/user/{userId}/cart")
+//    public List<CartResponseDto> getCart(@PathVariable Long userId){
+//        return cartService.getCart(userId);
+//    }
 
     // 장바구니안에 상품 삭제
     @DeleteMapping("/api/user/{userId}/cart/{cartItemId}/delete")
