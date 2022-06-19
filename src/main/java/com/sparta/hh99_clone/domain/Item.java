@@ -30,6 +30,12 @@ public class Item {
     @Column(nullable = false)
     private String description;
 
+    @Column(nullable = false)
+    private int upperCategory;
+
+    @Column(nullable = false)
+    private int lowerCategory;
+
 
     public Item(ItemRequestDto itemRequestDto) {
         this.itemName = itemRequestDto.getItemName();
