@@ -1,0 +1,33 @@
+@RestController
+@RequiredArgsConstructor
+public class ItemController {
+
+    //GetMapping 상품 상세 정보 확인 TEST용 PostMapping
+//    @PostMapping("api/items")
+//    public Item addItem(@RequestBody ItemRequestDto itemRequestDto) {
+//        Item item = itemService.addItem(itemRequestDto);
+//        return item;
+//    }
+
+
+    /*
+    // 상품 상세 정보 확인?
+    @GetMapping ("/api/shop/category/{itemId}")
+    public Item getItem(@PathVariable Long itemId){
+        return itemService.getItem(itemId);
+    }
+
+    //상품 리스트 불러오기(최상위 카테고리)
+    @GetMapping("/api/shop/category")   //"/api/shop/category/{upperCategoryId}")
+    public List<Item> getItem() {
+        return itemRepository.findAll();
+    }
+
+    //카테고리
+    @GetMapping("/api/shop/category/{categoryId}") //("/api/shop/category/{lowerCategoryId}")
+    public List<Category> getCategory() {
+        return categoryService.getCategory();   //categoryService.getCategory() ->
+    }       */
+
+
+}
