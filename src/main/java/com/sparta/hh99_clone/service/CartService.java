@@ -7,12 +7,12 @@ import com.sparta.hh99_clone.domain.User;
 import com.sparta.hh99_clone.dto.request.CartRequestDto;
 import com.sparta.hh99_clone.dto.response.CartResponseDto;
 import com.sparta.hh99_clone.dto.response.ItemResponseDto;
+import com.sparta.hh99_clone.repository.CartItemRepository;
 import com.sparta.hh99_clone.repository.CartRepository;
 import com.sparta.hh99_clone.repository.ItemRepository;
 import com.sparta.hh99_clone.repository.UserRepository;
+import com.sparta.hh99_clone.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -26,37 +26,39 @@ public class CartService {
     private final CartRepository cartRepository;
     private final UserRepository userRepository;
     private final ItemRepository itemRepository;
+    private final CartItemRepository cartItemRepository;
 
     @Transactional
-    public void saveCart(CartRequestDto cartRequestDto, Long itemId, User userId) {
-        User user = userRepository.findById(userId).orElseThrow(
-                () -> new IllegalArgumentException("사용자를 찾을 수 없습니다.")
-        );
+    public void saveCart(UserDetailsImpl userDetails, CartRequestDto cartRequestDto) {
 
-        // 장바구니 내 주문 수량
+        User user = userDetails.getUser();
+
         int quantity = cartRequestDto.getQuantity();
         System.out.println(quantity);
 
-        Item item = itemRepository.findById(itemId).orElseThrow(
+        Item item = itemRepository.findById(cartRequestDto.getItemId()).orElseThrow(
                 () -> new IllegalArgumentException("제품이 존재하지 않습니다.")
         );
 
-        // 장바구니 제품 수량 유효성 검사
-        if (quantity == 0) {
-            throw new IllegalArgumentException("장바구니에 담을 갯수를 정해주세요.");
+        Cart cart = cartRepository.findById(user.getUserId()).orElseThrow(
+                () -> new NullPointerException("카트가 존재하지 않습니다.")
+        );
+
+        List<CartItem> cartItems = cart.getCartItems();
+
+        int CartItemNumber = -1;
+
+        for(int i = 0; i < cartItems.size(); i++){
+            if(cartItems.get(i).getItemId() == item.getItemId()){
+                CartItemNumber++;
+            }
         }
 
-        List<Cart> cartCheck = cartRepository.findAllByitemId(itemId);
-
-        if (cartCheck.size() > 0) {
-            //이미 동일한 제품을 담은 경우 수량이 더해짐
-            for (Cart carts : cartCheck) {
-                carts.setQuantity(carts.getQuantity() + quantity);
-                cartRepository.save(carts);
-            }
+        if(CartItemNumber != -1){
+            cartItems.get(CartItemNumber).setQuantity(cartItems.get(i).getQuantity() + quantity);
+            cartItemRepository.save(cartItems.get(cartItemId));
         } else {
-            Cart cart = new Cart(user, itemId, quantity);
-            cartRepository.save(cart);
+
         }
     }
 
@@ -82,13 +84,12 @@ public class CartService {
             cartResponseDtoList.add(cartResponseDto);
         }
         return cartResponseDtoList;
-
     }
 
 
 
     // 장바구니 상품 삭제
-    public void deleteCart(Long userId, Long itemId) {
+    public void deleteCart(Long itemId) {
         // 유저가 존재하는지 유저 리포지토리에서 찾음 없다면 에러 반환
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new IllegalArgumentException("찾는 유저가 없습니다.")
@@ -103,19 +104,3 @@ public class CartService {
         cartRepository.deleteById(itemId);
     }
 }
-
-
-//장바구니 상품 조회
-//    @Transactional
-//    public List<CartResponseDto> getCart(Long userId){
-//        User user = userRepository.findById(userId).orElseThrow(
-//                () -> new IllegalArgumentException("찾는 유저가 없습니다.")
-//        );
-//        if(user.isPresent())
-//
-//
-//
-//
-//
-//        return cartResponseDtos;
-//    }

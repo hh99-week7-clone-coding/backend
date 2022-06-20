@@ -4,9 +4,10 @@ import com.sparta.hh99_clone.domain.Cart;
 import com.sparta.hh99_clone.dto.request.CartRequestDto;
 import com.sparta.hh99_clone.dto.response.CartResponseDto;
 import com.sparta.hh99_clone.dto.response.ItemResponseDto;
+import com.sparta.hh99_clone.security.UserDetailsImpl;
 import com.sparta.hh99_clone.service.CartService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,22 +19,21 @@ public class CartController {
     private final CartService cartService;
 
     // 장바구니 상품 담기
-    @PostMapping("/api/user/{itemId}/cart/add")
-    public void saveCart(@PathVariable Long itemId,
-                         @RequestBody CartRequestDto cartRequestDto) {
-        cartService.saveCart(itemId, cartRequestDto);
+    @PostMapping("/api/cart/add")
+    public void saveCart(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody CartRequestDto cartRequestDto) {
+        cartService.saveCart(userDetails, cartRequestDto);
     }
 
-    @GetMapping("/api/user/{userId}/cart/add")
-    public List<CartResponseDto> showCart(){
-        return cartService.showCart();
-    }
+//    @GetMapping("/api/cart/add")
+//    public List<CartResponseDto> showCart(){
+//        return cartService.showCart();
+//    }
 
     // 장바구니안에 상품 삭제
-    @DeleteMapping("/api/user/{userId}/cart/{cartId}/delete")
-    public void deleteCart(@PathVariable Long userId, @PathVariable Long cartId){
-        cartService.deleteCart(userId, cartId);
-    }
+//    @DeleteMapping("/api/cart/{cartId}/delete")
+//    public void deleteCart(@PathVariable Long cartId){
+//        cartService.deleteCart(cartId);
+//    }
 
 }
 
