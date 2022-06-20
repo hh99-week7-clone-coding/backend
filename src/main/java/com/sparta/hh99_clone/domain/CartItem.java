@@ -1,39 +1,33 @@
 package com.sparta.hh99_clone.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
-public class CartItem {         //cart 안에 들어갈것, food
+@Setter
+public class CartItem {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cartItemId;
 
     @Column(nullable = false)
-    private String itemName;
+    private Long userId;
 
     @Column(nullable = false)
-    private String categoryId;       //내한테 필요한 카테고리
+    private Long itemId;
 
     @Column(nullable = false)
-    private String imageUrl;
+    private int quantity;
 
-    @Column(nullable = false)
-    private int price;
-
-    @ManyToOne
-    private Cart cart;
-
-    public CartItem(String itemName, String categoryId, String imageUrl, int price) {
-        this.itemName = itemName;
-        this.categoryId = categoryId;
-        this.imageUrl = imageUrl;
-        this.price = price;
+    public CartItem(Long userId, Long itemId, int quantity) {
+        this.userId = userId;
+        this.itemId = itemId;
+        this.quantity = quantity;
     }
 }

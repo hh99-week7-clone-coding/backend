@@ -21,7 +21,6 @@ public class Item {
     private String imageUrl;
 
     @Column(nullable = false)
-
     private String imageOverUrl;
 
     @Column(nullable = false)
@@ -32,5 +31,4 @@ public class Item {
 
     @Column(nullable = false)
     private String categoryId;
-
 }

@@ -1,14 +1,12 @@
 package com.sparta.hh99_clone.service;
 
 import com.sparta.hh99_clone.domain.Item;
-import com.sparta.hh99_clone.dto.request.ItemRequestDto;
 
 import com.sparta.hh99_clone.dto.response.ItemResponseDto;
 import com.sparta.hh99_clone.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,24 +17,7 @@ public class ItemService {
 
     private final ItemRepository itemRepository;
 
-    //GetMapping 상품 상세 정보 확인 TEST용 PostMapping
-//    @Transactional
-//    public Item addItem(ItemRequestDto itemRequestDto) {
-//        Item item = new Item(itemRequestDto);
-//        itemRepository.save(item);
-//        return item;
-//    }
-
-    // item 상세 정보 확인?
-    public ItemResponseDto getItem(Long itemId) {
-        Item item =  itemRepository.findById(itemId).orElseThrow(
-                () -> new IllegalArgumentException("상품 없음")
-        );
-        return new ItemResponseDto(item);
-
-    }
-
-    // item 목록
+    // Item 카테고리 조회
     @Transactional
     public List<ItemResponseDto> getItems(String categoryId) {
         List<ItemResponseDto> itemResponseDtoList =  new ArrayList<>();
@@ -48,4 +29,11 @@ public class ItemService {
         return itemResponseDtoList;
     }
 
+    // Item 상세 조회
+    public ItemResponseDto getItem(Long itemId) {
+        Item item =  itemRepository.findById(itemId).orElseThrow(
+                () -> new IllegalArgumentException("상품 없음")
+        );
+        return new ItemResponseDto(item);
+    }
 }
