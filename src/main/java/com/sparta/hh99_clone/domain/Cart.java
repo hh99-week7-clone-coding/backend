@@ -10,7 +10,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Cart extends Timestamped {         //레스토랑 이라고 생각하자
+public class Cart extends Timestamped {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
