@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인 테스트 페이지</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+    <script>
+
+        function signup() {
+            $.ajax({
+                type: "POST",
+                url: `/api/user/signup`,
+                contentType: "application/json",
+                data: JSON.stringify({
+                    nation: "US",
+                    firstName: "Tester",
+                    lastName: "Guy",
+                    username: "tester@test.com",
+                    password: "password123"
+                }),
+                success: function (response, textStatus, request) {
+                    const jwtToken = request.getResponseHeader("Authorization");
+
+                    if (jwtToken) {
+                        $.cookie("token", jwtToken);
+                        $.ajaxSetup({
+                            headers:{
+                                'Authorization': $.cookie('token', jwtToken, { path: '/' })
+                            }
+                        });
+                        window.location.href = '/';
+                    } else {
+                        window.location.href = '/';
+                    }
+                }
+            })
+        }
+
+        function login() {
+            $.ajax({
+                type: "POST",
+                url: `/api/user/login`,
+                contentType: "application/json",
+                data: JSON.stringify({
+                    username: "tester@test.com",
+                    password: "password123"
+                }),
+                success: function (response, textStatus, request) {
+                    const jwtToken = request.getResponseHeader("Authorization");
+
+                    if (jwtToken) {
+                        $.cookie("token", jwtToken);
+                        $.ajaxSetup({
+                            headers:{
+                                'Authorization': $.cookie('token', jwtToken, { path: '/' })
+                            }
+                        });
+                        window.location.href = '/';
+                    } else {
+                        window.location.href = '/';
+                    }
+                }
+            })
+        }
+
+        function test() {
+            $.ajax({
+                type: "POST",
+                url: "/api/user/test",
+                headers:{'Authorization': $.cookie('token')},
+                success: function (response) {
+                    alert(response);
+                }
+            });
+        }
+
+        function logout() {
+            $.ajax({
+                type: "POST",
+                url: "/api/user/logout",
+                headers:{'Authorization': $.cookie('token')},
+                success: function (response, textStatus, request) {
+                    const jwtToken = request.getResponseHeader("Authorization");
+
+                    if (jwtToken) {
+                        $.cookie("token", jwtToken);
+                        $.ajaxSetup({
+                            headers:{
+                                'Authorization': $.cookie('token', jwtToken, { path: '/' })
+                            }
+                        });
+                        window.location.href = '/';
+                    } else {
+                        window.location.href = '/';
+                    }
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+<button onclick="signup()">
+    회원가입
+</button>
+<button onclick="login()">
+    로그인
+</button>
+<button onclick="test()">
+    로그인 확인
+</button>
+<button onclick="logout()">
+    로그아웃
+</button>
+</body>
+</html>
