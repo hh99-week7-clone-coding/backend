@@ -21,11 +21,6 @@ public class ItemController {
 
     @GetMapping("/api/shop/category")
     public ResponseEntity<List<ItemResponseDto>> getItems(@RequestParam(required = false) String categoryId) {
-//        if (categoryId != null) {
-//            return ResponseEntity.ok().body(itemService.findAllByCategoryId(categoryId));
-//
-//        }else {
-//        }
             return ResponseEntity.ok().body(itemService.getItems(categoryId));
         }
 

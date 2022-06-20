@@ -1,10 +1,7 @@
 package com.sparta.hh99_clone.dto.response;
 
 import com.sparta.hh99_clone.domain.Item;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Column;
 
@@ -12,8 +9,8 @@ import javax.persistence.Column;
 @NoArgsConstructor
 @Builder
 @Getter
+@Setter
 public class ItemResponseDto {  // get 할때 필요한 애들
-
 
     private Long itemId;
 
