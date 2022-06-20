@@ -27,7 +27,6 @@ public class CartService {
     private final CartItemRepository cartItemRepository;
     private final ItemRepository itemRepository;
 
-
     // Cart 조회
     public List<CartResponseDto> showCart(UserDetailsImpl userDetails) {
         User user = userDetails.getUser();
