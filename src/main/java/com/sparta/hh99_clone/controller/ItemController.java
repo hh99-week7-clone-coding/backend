@@ -14,13 +14,14 @@ public class ItemController {
     private final ItemService itemService;
 
 
-    // 아이템 전체 리스트
     @GetMapping("/api/shop/category")
     public ResponseEntity<List<ItemResponseDto>> getItems(@RequestParam(required = false) String categoryId) {
         return ResponseEntity.ok().body(itemService.getItems(categoryId));
     }
 
-    @GetMapping("/api/shop/item/{itemId}")  //item 상세 정보 받아오기
+
+    // Item 상세 조회
+    @GetMapping("/api/shop/item/{itemId}")
     public ItemResponseDto getItem(@PathVariable Long itemId) {
         return itemService.getItem(itemId);
     }
