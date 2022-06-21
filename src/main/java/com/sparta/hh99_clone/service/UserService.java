@@ -3,6 +3,7 @@ package com.sparta.hh99_clone.service;
 import com.sparta.hh99_clone.domain.Cart;
 import com.sparta.hh99_clone.domain.User;
 import com.sparta.hh99_clone.dto.request.UserSignupRequestDto;
+import com.sparta.hh99_clone.repository.CartRepository;
 import com.sparta.hh99_clone.exception.CustomException;
 import com.sparta.hh99_clone.exception.ErrorCode;
 import com.sparta.hh99_clone.repository.UserRepository;
@@ -18,6 +19,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final CartRepository cartRepository;
 
     // 회원가입
     @Transactional
@@ -30,6 +32,7 @@ public class UserService {
         user.setPassword(password);
         userRepository.save(user);
 
-        Cart cart = new Cart();     // 회원가입시 회원이 가진 카트생성
+        Cart cart = new Cart();
+        cartRepository.save(cart);
     }
 }
