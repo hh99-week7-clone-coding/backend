@@ -10,7 +10,7 @@ public class VehicleResponseDto {
 
     private int basePrice;
 
-    private int range;
+    private int rangeMiles;
 
     private double quarterMile;
 
@@ -27,7 +27,7 @@ public class VehicleResponseDto {
     public VehicleResponseDto(Vehicle vehicle) {
         this.vehicleName = vehicle.getVehicleName();
         this.basePrice = vehicle.getBasePrice();
-        this.range = vehicle.getRange();
+        this.rangeMiles = vehicle.getRangeMiles();
         this.quarterMile = vehicle.getQuarterMile();
         this.seating = vehicle.getSeating();
         this.cargoCapacity = vehicle.getCargoCapacity();

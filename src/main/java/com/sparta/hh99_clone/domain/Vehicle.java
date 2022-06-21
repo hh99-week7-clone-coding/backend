@@ -2,11 +2,13 @@ package com.sparta.hh99_clone.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 public class Vehicle {
 
@@ -21,7 +23,7 @@ public class Vehicle {
     private int basePrice;
 
     @Column
-    private int range;
+    private int rangeMiles;
 
     @Column
     private double quarterMile;

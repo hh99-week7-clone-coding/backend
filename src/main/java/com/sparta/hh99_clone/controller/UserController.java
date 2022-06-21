@@ -1,7 +1,6 @@
 package com.sparta.hh99_clone.controller;
 
 import com.sparta.hh99_clone.dto.request.UserSignupRequestDto;
-import com.sparta.hh99_clone.service.CartService;
 import com.sparta.hh99_clone.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
