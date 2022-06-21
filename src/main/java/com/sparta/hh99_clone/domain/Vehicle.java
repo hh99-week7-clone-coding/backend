@@ -27,44 +27,17 @@ public class Vehicle {
     private double quarterMile;
 
     @Column
-    private int peakPower;
+    private int seating;
 
     @Column
-    private String wheels;
+    private int cargoCapacity;
+
+    @Column
+    private String drive;
 
     @Column
     private double acceleration;
 
     @Column
     private int topSpeed;
-
-    @Column
-    private double dragCoefficient;
-
-    @Column
-    private String powertrain;
-
-    @Column
-    private int superchargingMax;
-
-    @Column
-    private int seating;
-
-    @Column
-    private String drive;
-
-    @Column
-    private String battery;
-
-    @Column
-    private String displays;
-
-    @Column
-    private String onboardChargerMax;
-
-    @Column
-    private String warranty;
-
-    @Column
-    private int towing;
 }
