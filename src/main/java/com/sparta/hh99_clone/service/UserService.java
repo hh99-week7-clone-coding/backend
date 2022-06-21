@@ -3,6 +3,7 @@ package com.sparta.hh99_clone.service;
 import com.sparta.hh99_clone.domain.Cart;
 import com.sparta.hh99_clone.domain.User;
 import com.sparta.hh99_clone.dto.request.UserSignupRequestDto;
+import com.sparta.hh99_clone.repository.CartRepository;
 import com.sparta.hh99_clone.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,6 +17,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final CartRepository cartRepository;
 
     // 회원가입
     @Transactional
@@ -29,5 +31,6 @@ public class UserService {
         userRepository.save(user);
 
         Cart cart = new Cart();
+        cartRepository.save(cart);
     }
 }
