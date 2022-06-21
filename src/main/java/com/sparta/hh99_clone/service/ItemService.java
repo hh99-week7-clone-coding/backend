@@ -3,6 +3,8 @@ package com.sparta.hh99_clone.service;
 import com.sparta.hh99_clone.domain.Item;
 
 import com.sparta.hh99_clone.dto.response.ItemResponseDto;
+import com.sparta.hh99_clone.exception.CustomException;
+import com.sparta.hh99_clone.exception.ErrorCode;
 import com.sparta.hh99_clone.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,7 @@ public class ItemService {
     // Item 카테고리 조회
     @Transactional
     public List<ItemResponseDto> getItems(String categoryId) {
+
         List<ItemResponseDto> itemResponseDtoList =  new ArrayList<>();
         List<Item> items = itemRepository.findAllByCategoryId(categoryId);
         for(int i = 0; i < items.size(); i++) {
@@ -32,7 +35,7 @@ public class ItemService {
     // Item 상세 조회
     public ItemResponseDto getItem(Long itemId) {
         Item item =  itemRepository.findById(itemId).orElseThrow(
-                () -> new IllegalArgumentException("상품 없음")
+                () -> new CustomException(ErrorCode.NOT_FOUND_ITEM)
         );
         return new ItemResponseDto(item);
     }

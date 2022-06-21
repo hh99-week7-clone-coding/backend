@@ -13,8 +13,6 @@ import javax.validation.Valid;
 @RestController
 @RequiredArgsConstructor
 public class UserController {
-
-    private final CartService cartService;
     private final UserService userService;
 
     // 회원가입

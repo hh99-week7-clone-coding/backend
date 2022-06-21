@@ -6,6 +6,8 @@ import com.sparta.hh99_clone.domain.Item;
 import com.sparta.hh99_clone.domain.User;
 import com.sparta.hh99_clone.dto.request.CartRequestDto;
 import com.sparta.hh99_clone.dto.response.CartResponseDto;
+import com.sparta.hh99_clone.exception.CustomException;
+import com.sparta.hh99_clone.exception.ErrorCode;
 import com.sparta.hh99_clone.repository.CartItemRepository;
 import com.sparta.hh99_clone.repository.CartRepository;
 import com.sparta.hh99_clone.repository.ItemRepository;
@@ -57,15 +59,15 @@ public class CartService {
         int quantity = requestDto.getQuantity();
 
         Item item = itemRepository.findById(requestDto.getItemId()).orElseThrow(
-                () -> new IllegalArgumentException("제품이 존재하지 않습니다.")
+                () -> new CustomException(ErrorCode.NOT_FOUND_ITEM)
         );
 
         if (quantity == 0) {
-            throw new IllegalArgumentException("장바구니에 담을 갯수를 정해주세요.");
+            throw new CustomException(ErrorCode.NOT_FOUND_QUANTITY);
         }
 
         Cart cart = cartRepository.findById(user.getUserId()).orElseThrow( // cartId와 userId는 동일하게 세팅되어 있습니다.
-                () -> new NullPointerException("카트가 존재하지 않습니다.")
+                () -> new CustomException(ErrorCode.NOT_FOUND_CART)
         );
 
         List<CartItem> cartItems = cart.getCartItems();
@@ -92,10 +94,10 @@ public class CartService {
     public void deleteItem(UserDetailsImpl userDetails, Long cartItemId) {
         User user = userDetails.getUser();
         CartItem cartItem = cartItemRepository.findById(cartItemId).orElseThrow(
-                () -> new NullPointerException("카트 아이템이 존재하지 않습니다.")
+                () -> new CustomException(ErrorCode.NOT_FOUND_CARTITEM)
         );
 
-        if(!Objects.equals(user.getUserId(), cartItem.getUserId())) throw new IllegalArgumentException("로그인한 사용자의 카트 아이템이 아닙니다.");
+        if(!Objects.equals(user.getUserId(), cartItem.getUserId())) throw new CustomException(ErrorCode.NOT_USER_CART);
 
         cartItemRepository.deleteById(cartItemId);
     }

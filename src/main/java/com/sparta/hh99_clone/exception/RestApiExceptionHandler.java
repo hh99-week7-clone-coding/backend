@@ -11,15 +11,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class RestApiExceptionHandler {
 
-    @ExceptionHandler(value = { IllegalArgumentException.class })
-    public ResponseEntity<Object> handleApiRequestException(IllegalArgumentException ex) {
-        RestApiException restApiException = new RestApiException();
-        restApiException.setHttpStatus(HttpStatus.BAD_REQUEST);
-        restApiException.setErrorMessage(ex.getMessage());
-
-        return new ResponseEntity(
-                restApiException,
-                HttpStatus.BAD_REQUEST
-        );
+    // .class 의 throw 값을 잡겠다는 뜻
+    @ExceptionHandler(value = { CustomException.class })
+    public ResponseEntity<ErrorResponse> handleApiRequestException(CustomException ex) {
+        return ErrorResponse.responseEntity(ex.getErrorCode());
     }
 }
