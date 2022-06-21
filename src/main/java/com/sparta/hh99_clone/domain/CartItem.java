@@ -17,6 +17,7 @@ public class CartItem {
     private Long cartItemId;
 
     @Column(nullable = false)
+
     private Long userId;
 
     @Column(nullable = false)
@@ -24,6 +25,7 @@ public class CartItem {
 
     @Column(nullable = false)
     private int quantity;
+
 
     public CartItem(Long userId, Long itemId, int quantity) {
         this.userId = userId;

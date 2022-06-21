@@ -4,6 +4,8 @@ import com.sparta.hh99_clone.domain.Cart;
 import com.sparta.hh99_clone.domain.User;
 import com.sparta.hh99_clone.dto.request.UserSignupRequestDto;
 import com.sparta.hh99_clone.repository.CartRepository;
+import com.sparta.hh99_clone.exception.CustomException;
+import com.sparta.hh99_clone.exception.ErrorCode;
 import com.sparta.hh99_clone.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,7 +25,7 @@ public class UserService {
     @Transactional
     public void userSignup(UserSignupRequestDto requestDto) {
         if (userRepository.findByUsername(requestDto.getUsername()).isPresent()) {
-            throw new IllegalArgumentException("Already existing Email Address");
+            throw new CustomException(ErrorCode.USER_EMAIL_CONFLICT);
         }
         User user = new User(requestDto);
         String password = passwordEncoder.encode(requestDto.getPassword());
