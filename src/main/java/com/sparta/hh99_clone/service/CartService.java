@@ -5,6 +5,7 @@ import com.sparta.hh99_clone.domain.CartItem;
 import com.sparta.hh99_clone.domain.Item;
 import com.sparta.hh99_clone.domain.User;
 import com.sparta.hh99_clone.dto.request.CartRequestDto;
+import com.sparta.hh99_clone.dto.request.NonLoginUserCartRequestDto;
 import com.sparta.hh99_clone.dto.response.CartResponseDto;
 import com.sparta.hh99_clone.exception.CustomException;
 import com.sparta.hh99_clone.exception.ErrorCode;
@@ -34,7 +35,7 @@ public class CartService {
         User user = userDetails.getUser();
 
         Cart cart = cartRepository.findById(user.getUserId()).orElseThrow( // cartId와 userId는 동일하게 세팅되어 있습니다.
-                () -> new NullPointerException("카트가 존재하지 않습니다.")
+                () -> new CustomException(ErrorCode.NOT_FOUND_CART)
         );
 
         List<CartItem> cartItems = cart.getCartItems();
@@ -44,7 +45,7 @@ public class CartService {
             Long itemId = cartItems.get(i).getItemId();
             int quantity = cartItems.get(i).getQuantity();
             Item item = itemRepository.findById(itemId).orElseThrow(
-                    () -> new NullPointerException("제품이 존재하지 않습니다.")
+                    () -> new CustomException(ErrorCode.NOT_FOUND_ITEM)
             );
             CartResponseDto newDto = new CartResponseDto(item, quantity);
             cartResponseDtos.add(newDto);
@@ -100,5 +101,28 @@ public class CartService {
         if(!Objects.equals(user.getUserId(), cartItem.getUserId())) throw new CustomException(ErrorCode.NOT_USER_CART);
 
         cartItemRepository.deleteById(cartItemId);
+    }
+
+    // 비로그인 유저 CartItem -> 로그인 유저 CartItem
+    public void saveItemToLoginUser(UserDetailsImpl userDetails, List<NonLoginUserCartRequestDto> requestDto){
+//        참고한 for each 문
+        for (NonLoginUserCartRequestDto nonLoginCart : requestDto){
+            Long itemId = nonLoginCart.getItemId();
+            int quantity = nonLoginCart.getQuantity();
+
+            CartRequestDto cartRequestDto = new CartRequestDto(itemId, quantity);
+            saveItem(userDetails, cartRequestDto);
+        }
+
+//        List<NonLoginUserCartRequestDto> requestDtoList = requestDto;
+//        List<CartRequestDto> cartRequestDto = new ArrayList<>();
+//
+//        for (int i = 0; i < requestDtoList.size(); i++){
+//            Long itemId = requestDtoList.get(i).getItemId();
+//            int quantity = requestDtoList.get(i).getQuantity();
+//
+//            CartRequestDto cartRequestDtoList = new CartRequestDto(itemId, quantity);
+//            cartRequestDto.add(cartRequestDtoList);
+//        }
     }
 }

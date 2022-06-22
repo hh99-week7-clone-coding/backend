@@ -1,6 +1,7 @@
 package com.sparta.hh99_clone.controller;
 
 import com.sparta.hh99_clone.dto.request.CartRequestDto;
+import com.sparta.hh99_clone.dto.request.NonLoginUserCartRequestDto;
 import com.sparta.hh99_clone.dto.response.CartResponseDto;
 import com.sparta.hh99_clone.exception.CustomException;
 import com.sparta.hh99_clone.exception.ErrorCode;
@@ -44,4 +45,11 @@ public class CartController {
         }
         cartService.deleteItem(userDetails, cartItemId);
     }
+
+    // 비로그인 유저 CartItem -> 로그인 유저 CartItem
+    @PostMapping("/api/cart/logincart")
+    public void saveItemToLoginUser(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody List<NonLoginUserCartRequestDto> requestDto){
+        cartService.saveItemToLoginUser(userDetails, requestDto);
+    }
+
 }
