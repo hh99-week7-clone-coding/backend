@@ -18,4 +18,11 @@ public class VehicleController {
     public VehicleResponseDto getVehicle(@PathVariable Long vehicleId) {
         return vehicleService.getVehicle(vehicleId);
     }
+
+    // 차량 모델 모델명으로 상세 조회
+    @GetMapping("/api/vehicle/byName/{vehicleName}")
+    public VehicleResponseDto getVehicleByName(@PathVariable String vehicleName) {
+        return vehicleService.getVehicleByName(vehicleName);
+    }
+
 }

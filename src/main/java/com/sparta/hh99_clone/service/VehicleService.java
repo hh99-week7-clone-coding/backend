@@ -22,4 +22,13 @@ public class VehicleService {
         VehicleResponseDto responseDto = new VehicleResponseDto(vehicle);
         return responseDto;
     }
+
+    // 차량 모델 모델명으로 상세 조회
+    public VehicleResponseDto getVehicleByName(String vehicleName) {
+        Vehicle vehicle = vehicleRepository.findByVehicleName(vehicleName).orElseThrow(
+                () -> new CustomException(ErrorCode.NOT_FOUND_VEHICLE)
+        );
+        VehicleResponseDto responseDto = new VehicleResponseDto(vehicle);
+        return responseDto;
+    }
 }
