@@ -26,7 +26,7 @@ public class Vehicle {
     private int rangeMiles;
 
     @Column
-    private double quarterMile;
+    private String imageUrl;
 
     @Column
     private int seating;
