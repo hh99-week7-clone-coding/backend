@@ -33,6 +33,6 @@ public class UserService {
         userRepository.save(user);
 
         Cart cart = new Cart();
-        cartRepository.save(cart);
+        cartRepository.save(cart);      //회원가입시 새로운 cart 를 배정
     }
 }
