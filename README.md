@@ -24,8 +24,10 @@
   <img src="https://img.shields.io/badge/AmazonEC2-FF9900?style=flat&logo=AmazonEC2&logoColor=orange"/>
 
   ## 🎬 배포
+  http://hanghaeweekdiary.s3-website.ap-northeast-2.amazonaws.com/vehicle/info/model%20S
 
   ## 📽 시연 영상
+  https://www.youtube.com/watch?v=wu8Oj0qeuyo
 
   ## 🧾 API 및 ERD 설계
     
